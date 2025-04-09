@@ -1,0 +1,53 @@
+table PRODUCTS
+	lineageTag: a3e832ed-3e09-433f-b83c-3880cfa05879
+
+	column PRODUCT_KEY
+		dataType: string
+		lineageTag: c93fe78a-f7ee-4837-82bd-99786f5ef02c
+		summarizeBy: none
+		sourceColumn: PRODUCT_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column REVENUE_TYPE
+		dataType: double
+		lineageTag: 044fcd45-e834-482a-a77e-2dcd8f3ed275
+		summarizeBy: none
+		sourceColumn: REVENUE_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRODUCT_LEVEL_1
+		dataType: string
+		lineageTag: 0aa1cdb5-b60d-423e-95bc-e1eb59995526
+		summarizeBy: none
+		sourceColumn: PRODUCT_LEVEL_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_LEVEL_2
+		dataType: string
+		lineageTag: e0200ef9-1cbc-45b9-943f-4b837849acd3
+		summarizeBy: none
+		sourceColumn: PRODUCT_LEVEL_2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PRODUCTS = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("RTSSRMI-GWB24673","COMPUTE_WH",[Implementation="2.0"]),
+				    SNOWBALL_DATA_Database = Source{[Name="SNOWBALL_DATA",Kind="Database"]}[Data],
+				    PUBLIC_Schema = SNOWBALL_DATA_Database{[Name="PUBLIC",Kind="Schema"]}[Data],
+				    PRODUCTS_Table = PUBLIC_Schema{[Name="PRODUCTS",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(PRODUCTS_Table,{"PRODUCT_DIM_1", "PRODUCT_DIM_2", "PRODUCT_DIM_3", "PRODUCT_DIM_4", "PRODUCT_DIM_5"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

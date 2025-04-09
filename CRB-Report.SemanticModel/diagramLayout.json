@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 9,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 811.38305001469371,
+            "y": 451.125
+          },
+          "nodeIndex": "CUSTOMERS",
+          "nodeLineageTag": "dae92c9b-9825-4bb1-a837-9933696df94a",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 180.125
+          },
+          "nodeIndex": "PRODUCTS",
+          "nodeLineageTag": "a3e832ed-3e09-433f-b83c-3880cfa05879",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 401.20156119318523,
+            "y": 154.125
+          },
+          "nodeIndex": "SNOWBALL_DATASET",
+          "nodeLineageTag": "34cb806d-c73e-4afe-bf71-ff9943b2ce22",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 998.38305001469371,
+            "y": 147.875
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "12df52bd-98be-4cb7-9ee6-ed167e6f108c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

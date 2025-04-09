@@ -1,0 +1,22 @@
+relationship AutoDetected_6c24da56-8422-4169-9706-4c17c807beba
+	fromColumn: SNOWBALL_DATASET.PRODUCT_KEY
+	toColumn: PRODUCTS.PRODUCT_KEY
+
+relationship AutoDetected_f2c204ef-a027-45bc-9f0b-fac565090372
+	fromColumn: SNOWBALL_DATASET.CUSTOMER_KEY
+	toColumn: CUSTOMERS.CUSTOMER_KEY
+
+relationship 9dcd8560-babc-47b6-a025-a3747ea1ea4f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CUSTOMERS.CohartStartDate
+	toColumn: LocalDateTable_8718e156-eb7f-4c9a-9915-ae4607c9ac12.Date
+
+relationship 500ff503-d50d-4af5-8c87-cd1692576948
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.Date
+	toColumn: LocalDateTable_6c55907b-ee4d-4f87-a984-937b886b09f6.Date
+
+relationship 2a7a1478-82aa-2030-7b32-a41c54afa3fe
+	fromColumn: SNOWBALL_DATASET.MONTH_ROLL
+	toColumn: Calendar.month_roll
+

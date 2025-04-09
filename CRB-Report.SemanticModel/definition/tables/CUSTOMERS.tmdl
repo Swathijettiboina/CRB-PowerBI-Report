@@ -1,0 +1,106 @@
+table CUSTOMERS
+	lineageTag: dae92c9b-9825-4bb1-a837-9933696df94a
+
+	column CUSTOMER_KEY
+		dataType: string
+		lineageTag: edcf54d0-1480-4202-b521-aa19875a906b
+		summarizeBy: none
+		sourceColumn: CUSTOMER_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_LEVEL_1
+		dataType: double
+		lineageTag: 1be6db90-3d36-419f-a63d-e1d380fd1390
+		summarizeBy: sum
+		sourceColumn: CUSTOMER_LEVEL_1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_LEVEL_2
+		dataType: double
+		lineageTag: 7efe4222-10c8-4821-ad9f-58dd30eccaec
+		summarizeBy: sum
+		sourceColumn: CUSTOMER_LEVEL_2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_NAME
+		dataType: string
+		lineageTag: cebf3ff9-f9b6-4e69-8a42-c26c63d84625
+		summarizeBy: none
+		sourceColumn: CUSTOMER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_COUNTRY
+		dataType: string
+		lineageTag: 3e8998ac-d6e9-4c2e-b6fa-129cd34b7d61
+		summarizeBy: none
+		sourceColumn: CUSTOMER_COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_REGION
+		dataType: string
+		lineageTag: 9927df04-e769-4e6b-a33e-e5c1247c8487
+		summarizeBy: none
+		sourceColumn: CUSTOMER_REGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_COHORT_YEAR
+		dataType: double
+		lineageTag: 113f9403-5fa2-42a7-82c2-4119d49e863d
+		summarizeBy: sum
+		sourceColumn: CUSTOMER_COHORT_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CohartStartDate = DATE('CUSTOMERS'[CUSTOMER_COHORT_YEAR],1,1)
+		formatString: General Date
+		lineageTag: 36d9d4b1-ab8b-4058-9370-ad09b857ac58
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 9dcd8560-babc-47b6-a025-a3747ea1ea4f
+			defaultHierarchy: LocalDateTable_8718e156-eb7f-4c9a-9915-ae4607c9ac12.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohartorderdate = FORMAT(CUSTOMERS[CohartStartDate],"DD-MM-YYYY HH:MM")
+		lineageTag: 927a5502-51a9-498b-ad95-56213dea6a1f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'CUSTOMER_COUNTRY Hierarchy'
+		lineageTag: a431b72e-1000-4f3a-a711-0c8867121dde
+
+		level CUSTOMER_COUNTRY
+			lineageTag: 26443e70-a2a8-4e2c-aadb-f27482561f66
+			column: CUSTOMER_COUNTRY
+
+	partition CUSTOMERS = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("RTSSRMI-GWB24673","COMPUTE_WH",[Implementation="2.0"]),
+				    SNOWBALL_DATA_Database = Source{[Name="SNOWBALL_DATA",Kind="Database"]}[Data],
+				    PUBLIC_Schema = SNOWBALL_DATA_Database{[Name="PUBLIC",Kind="Schema"]}[Data],
+				    CUSTOMERS_Table = PUBLIC_Schema{[Name="CUSTOMERS",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(CUSTOMERS_Table,{"CUSTOMER_SEGMENT"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
